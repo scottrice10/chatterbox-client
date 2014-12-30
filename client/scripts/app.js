@@ -11,6 +11,15 @@ var app = {rooms:{}, data: [], roomFilters: [], allRooms: {}, currentRooms: {}};
 
 app.server = 'https://api.parse.com/1/classes/chatterbox';
 
+app.doCheckboxes = function(i){
+  if(app.allRooms[i]){
+    // console.log($('#' + i));
+    $('#' + i).prop( "checked", true );
+  } else {
+    $('#' + i).prop( "checked", false );
+  }
+};
+
 app.fetch = function(){
   var that = this;
   $.ajax({
@@ -53,13 +62,15 @@ app.fetch = function(){
       $('#roomSelect').html('');
       for (var i in app.allRooms) {
         $('#roomSelect').append("<input type='checkbox' id='" + i + "'>" + i + "</br>")
-        .bind('click', function(event){
+        .on('click', function(event){
           var key = _.escape(event.target.id);
-          console.log(key, event);
           app.allRooms[key] = !app.allRooms[key];
           app.roomFilters.push(key);
+          app.doCheckboxes(i);
           app.fetch();
         });
+
+        app.doCheckboxes(i);
       }
     },
     error: function (data) {
@@ -98,14 +109,14 @@ app.addRoom = function(room){
 app.addMessage = function(message){
   this.send(message);
   $('#chats').append("<li>"
-          + "<span>Created at: " + _.escape(message.createdAt) + "</span></br>"
-          + "<span>Update at: " + _.escape(message.updatedAt) + "</span></br>"
-          + "<span>Function: " + _.escape(message.fn) + "</span></br>"
-          + "<span>Message: " + _.escape(message.text) + "</span></br>"
-          + "<span>Username: " + _.escape(message.username) + "</span></br>"
-          + "<span>Roomname: " + _.escape(message.roomname) + "</span></br>"
-          + "</br></br>"
-          + "</li>");
+      + "<span>Created at: " + _.escape(message.createdAt) + "</span></br>"
+      + "<span>Update at: " + _.escape(message.updatedAt) + "</span></br>"
+      + "<span>Function: " + _.escape(message.fn) + "</span></br>"
+      + "<span>Message: " + _.escape(message.text) + "</span></br>"
+      + "<span>Username: " + _.escape(message.username) + "</span></br>"
+      + "<span>Roomname: " + _.escape(message.roomname) + "</span></br>"
+      + "</br></br>"
+      + "</li>");
 
 };
 

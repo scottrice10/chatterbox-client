@@ -1,23 +1,25 @@
 // YOUR CODE HERE:
 //
-
+//
 var message = {
   'username': 'shawndrost',
   'text': 'trololo',
   'roomname': '4chan'
 };
 
-var app = {rooms:{}, data: [], roomFilters: [], allRooms: {}, currentRooms: {}};
+var app = {rooms:{}, data: [], roomFilters: {}, allRooms: {}, currentRooms: {}};
 
 app.server = 'https://api.parse.com/1/classes/chatterbox';
 
-app.doCheckboxes = function(i){
+app.doCheckboxes = function(i, key){
+  key = key || i;
+  console.log(key)
   if(app.allRooms[i]){
-    // console.log($('#' + i));
     $('#' + i).prop( "checked", true );
   } else {
     $('#' + i).prop( "checked", false );
   }
+  ($('#' + i).prop( "checked")) ? (app.roomFilters[key] = true) : (delete app.roomFilters[key]);
 };
 
 app.fetch = function(){
@@ -34,7 +36,7 @@ app.fetch = function(){
       data = data.results.filter(function(message, index, array) {
         var room = _.escape(message.roomname);
         app.currentRooms[room] = false;
-        if (app.roomFilters.length && app.roomFilters.indexOf(message.roomname) === -1) {
+        if (Object.keys(app.roomFilters).length && !(message.roomname in app.roomFilters)) {
           return false;
         }
         else {
@@ -65,12 +67,11 @@ app.fetch = function(){
         .on('click', function(event){
           var key = _.escape(event.target.id);
           app.allRooms[key] = !app.allRooms[key];
-          app.roomFilters.push(key);
-          app.doCheckboxes(i);
+          app.doCheckboxes(i, key);
           app.fetch();
         });
 
-        app.doCheckboxes(i);
+        //app.doCheckboxes(i);
       }
     },
     error: function (data) {

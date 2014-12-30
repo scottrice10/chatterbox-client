@@ -82,3 +82,22 @@ form input[type=text] {
 .spinner img {
     padding: 10px;
 }
+
+.messages li {
+    list-style: none;
+}
+
+#rooms {
+    float: left;
+    background: white;
+    width: 300px;
+}
+
+#rooms h1{
+    text-align: left;
+    margin-left: 30px;
+}
+
+#roomSelect {
+    text-align: left;
+}

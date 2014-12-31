@@ -5,7 +5,7 @@ body {
     font-family: arial, sans-serif;
 }
 
-#main {
+#main, #chats {
     width: 500px;
     margin: auto;
     text-align: left;
@@ -82,22 +82,4 @@ form input[type=text] {
 .spinner img {
     padding: 10px;
 }
-
-.messages li {
-    list-style: none;
-}
-
-#rooms {
-    float: left;
-    background: white;
-    width: 300px;
-}
-
-#rooms h1{
-    text-align: left;
-    margin-left: 30px;
-}
-
-#roomSelect {
-    text-align: left;
-}
+Vimium has been updated to 1.49.×

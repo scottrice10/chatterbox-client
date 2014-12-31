@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "dependencies": {
     "jquery": "~2.0.3",
-    "underscore": "*"
+    "underscore": "*",
+    "backbone": "~1.1.2"
   },
   "ignore": [
     "**/.*",
